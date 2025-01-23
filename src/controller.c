@@ -6,7 +6,7 @@ void init_controller(struct controller *this, struct model *model) {
 
 void handle_user_input(struct controller *this, int argc, char *argv[]) {
     if (argc < 2) {
-        view_display_error("Usage: task-cli <command> [<args>]\n");
+        display_error("Usage: task-cli <command> [<args>]\n");
     }
 
 

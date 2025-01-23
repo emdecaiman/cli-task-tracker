@@ -1,3 +1,6 @@
 #include "view.h"
+#include <stdio.h>
 
-display_error(char *error_msg);
+void display_error(char *error_msg) {
+    fprintf(stderr, "%s", error_msg); 
+}
