@@ -2,12 +2,15 @@
 triple:          'arm64-apple-darwin'
 binary-path:     task-cli
 relocations:
-  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003C1C, symSize: 0x50 }
-  - { offset: 0x33, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003C1C, symSize: 0x50 }
-  - { offset: 0xE5, size: 0x8, addend: 0x0, symName: _init_controller, symObjAddr: 0x0, symBinAddr: 0x100003C6C, symSize: 0x20 }
-  - { offset: 0x100, size: 0x8, addend: 0x0, symName: _init_controller, symObjAddr: 0x0, symBinAddr: 0x100003C6C, symSize: 0x20 }
-  - { offset: 0x132, size: 0x8, addend: 0x0, symName: _handle_user_input, symObjAddr: 0x20, symBinAddr: 0x100003C8C, symSize: 0x198 }
-  - { offset: 0x216, size: 0x8, addend: 0x0, symName: _display_error, symObjAddr: 0x0, symBinAddr: 0x100003E24, symSize: 0x40 }
-  - { offset: 0x231, size: 0x8, addend: 0x0, symName: _display_error, symObjAddr: 0x0, symBinAddr: 0x100003E24, symSize: 0x40 }
-  - { offset: 0x255, size: 0x8, addend: 0x0, symName: _display_query_message, symObjAddr: 0x40, symBinAddr: 0x100003E64, symSize: 0x44 }
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000038BC, symSize: 0x5C }
+  - { offset: 0x33, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000038BC, symSize: 0x5C }
+  - { offset: 0x108, size: 0x8, addend: 0x0, symName: _init_controller, symObjAddr: 0x0, symBinAddr: 0x100003918, symSize: 0x20 }
+  - { offset: 0x123, size: 0x8, addend: 0x0, symName: _init_controller, symObjAddr: 0x0, symBinAddr: 0x100003918, symSize: 0x20 }
+  - { offset: 0x155, size: 0x8, addend: 0x0, symName: _handle_user_input, symObjAddr: 0x20, symBinAddr: 0x100003938, symSize: 0x198 }
+  - { offset: 0x25C, size: 0x8, addend: 0x0, symName: _execute_sql, symObjAddr: 0x0, symBinAddr: 0x100003AD0, symSize: 0xA8 }
+  - { offset: 0x277, size: 0x8, addend: 0x0, symName: _execute_sql, symObjAddr: 0x0, symBinAddr: 0x100003AD0, symSize: 0xA8 }
+  - { offset: 0x2D3, size: 0x8, addend: 0x0, symName: _init_model, symObjAddr: 0xA8, symBinAddr: 0x100003B78, symSize: 0x8C }
+  - { offset: 0x3A4, size: 0x8, addend: 0x0, symName: _display_error, symObjAddr: 0x0, symBinAddr: 0x100003C04, symSize: 0x40 }
+  - { offset: 0x3BF, size: 0x8, addend: 0x0, symName: _display_error, symObjAddr: 0x0, symBinAddr: 0x100003C04, symSize: 0x40 }
+  - { offset: 0x3E3, size: 0x8, addend: 0x0, symName: _display_query_message, symObjAddr: 0x40, symBinAddr: 0x100003C44, symSize: 0x44 }
 ...
