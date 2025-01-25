@@ -1,5 +1,8 @@
 #include "model.h"
 #include "view.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H

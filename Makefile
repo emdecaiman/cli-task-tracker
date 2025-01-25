@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -WALL -Wextra -g -Iinclude
+CFLAGS = -Wall -Wextra -g -Iinclude
 
 SRCS = src/main.c src/controller.c src/model.c src/view.c
 EXEC = task-cli
