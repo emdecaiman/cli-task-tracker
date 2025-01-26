@@ -12,13 +12,12 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
     char *command = argv[1];
 
     if (strcmp(command, "add") == 0) {
-        if (argc != 3) {
-            display_error("Usage: task-cli add \"task\"\n");
+        if (argc != 4) {
+            display_error("Usage: task-cli add \"task\" \"group\"\n");
             return;
         }
-        // notify model to add task, and returns the id
 
-        int id = 0; // placeholder for now
+        int id = add_task(this->model, argv[2], argv[3]);
         display_query_message(id, "added"); 
         printf("%d", argc);
     } else if (strcmp(command, "update") == 0) {
@@ -41,4 +40,6 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
     } else {
         display_error("Error: Not a valid command\n");
     }
+
+    sqlite3_close(this->model->db); 
 };
