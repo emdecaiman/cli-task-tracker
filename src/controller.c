@@ -19,7 +19,6 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
 
         int id = add_task(this->model, argv[2], argv[3]);
         display_query_message(id, "added"); 
-        printf("%d", argc);
     } else if (strcmp(command, "update") == 0) {
         if (argc != 4) {
             display_error("Usage: task-cli update <id> \"task\"\n");

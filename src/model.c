@@ -32,7 +32,6 @@ void init_model(struct model *this) {
         "description TEXT NOT NULL,"\
         "status TEXT CHECK(status IN ('TODO', 'IN_PROG', 'DONE')) NOT NULL DEFAULT 'TODO',"\
         "date_created DATE DEFAULT CURRENT_TIMESTAMP,"\
-        "due_date DATE,"\
         "FOREIGN KEY (group_id) REFERENCES groups(group_id)"\
         ");";
     
@@ -42,7 +41,14 @@ void init_model(struct model *this) {
 
 int add_task(struct model *this, const char *task, const char* group) {
     int group_id = get_group_id(this, group);
-    printf("%d", group_id);
+    char sql[256];
+
+    snprintf(sql, sizeof(sql), "INSERT INTO tasks (group_id, description) VALUES (%d, '%s');", group_id, task); 
+    execute_sql(this, sql, NULL);
+
+    int task_id = (int)sqlite3_last_insert_rowid(this->db);
+
+    return task_id;
 }
 
 int get_group_id(struct model *this, const char* group) {
