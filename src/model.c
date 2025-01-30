@@ -1,9 +1,14 @@
 #include "model.h"
 #include "view.h"
 
+static int callback(void *data, int num_columns, char **column_text, char **column_name) {
+    display_task(num_columns, column_text, column_name);
+    return 0;
+}
+
 void execute_sql(struct model *this, const char *sql, int (*callback)(void*, int, char**, char**)) {
     char *err_msg = 0;
-    int rc = sqlite3_exec(this->db, sql, callback, 0, &err_msg);
+    int rc = sqlite3_exec(this->db, sql, callback, NULL, &err_msg);
     if (rc != SQLITE_OK) {
         display_error(err_msg);
         sqlite3_free(err_msg);
@@ -83,4 +88,27 @@ void add_group(struct model *this, const char* group) {
     snprintf(sql, sizeof(sql), "INSERT INTO groups (group_name) VALUES ('%s');", group);
 
     execute_sql(this, sql, NULL);
+}
+
+void list_tasks(struct model *this, const char* filter) {
+    const char *sql;
+    int isValidFilter = strcmp(filter, "done") == 0 || strcmp(filter, "to-do") == 0 || strcmp(filter, "in-progress") == 0;
+
+    if (strcmp(filter, "all") == 0) {
+        sql = 
+            "SELECT task_id, group_name, description, status, date_created "\
+            "FROM tasks "\
+            "INNER JOIN groups ON tasks.group_id = groups.group_id;";
+        execute_sql(this, sql, callback);
+    } else if (isValidFilter) {
+        char sql[256];
+        snprintf(sql, sizeof(sql), 
+            "SELECT task_id, group_name, description, status, date_created "
+            "FROM tasks "
+            "INNER JOIN groups ON tasks.group_id = groups.group_id "
+            "WHERE status = '%s';", filter);
+        execute_sql(this, sql, callback);
+    } else {
+        display_error("Usage: task-cli list <done><to-do><in-progress><all>\n");
+    }
 }

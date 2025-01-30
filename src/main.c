@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
     init_model(&model);
     init_controller(&controller, &model);
     handle_user_input(&controller, argc, argv);
+    sqlite3_close(model.db); 
 
     return 0;
 }

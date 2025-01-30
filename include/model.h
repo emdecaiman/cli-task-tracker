@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef MODEL_H
 #define MODEL_H
@@ -15,6 +16,6 @@ void execute_sql(struct model *this, const char *sql, int (*callback)(void*, int
 int add_task(struct model *this, const char *task, const char *group);
 int get_group_id(struct model *this, const char *group);
 void add_group(struct model *this, const char* group);
-
+void list_tasks(struct model *this, const char* filter);
 
 #endif
