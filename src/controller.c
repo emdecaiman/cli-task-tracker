@@ -19,6 +19,10 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
         }
 
         int id = add_task(this->model, argv[2], argv[3]);
+        if (id == -1) {
+            display_error("Error: Unable to add task\n");
+            return;
+        }
         display_query_message(id, "added");
 
     } else if (strcmp(command, "update") == 0) {
@@ -28,7 +32,10 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
         }
         int task_id = atoi(argv[2]);
 
-        update_task(this->model, task_id, argv[3]);
+        if (update_task(this->model, task_id, argv[3]) != 0) {
+            display_error("Error: Unable to update task\n");
+            return;
+        }
         display_query_message(task_id, "updated");
 
     } else if (strcmp(command, "delete") == 0) {
@@ -37,9 +44,11 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
             return;
         }
 
+        // to do still
+
     } else if (strcmp(command, "mark") == 0) {
         if (argc != 3) {
-            display_error("Usage: task-cli mark <id> <done><to-do><in-progress>\n");
+            display_error("Usage: task-cli mark <id> <done><todo><in-progress>\n");
             return;
         }
         // mark to-do
@@ -48,10 +57,12 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
 
     } else if (strcmp(command, "list") == 0) {
         if (argc != 3) {
-            display_error("Usage: task-cli list <done><to-do><in-progress><all>\n");
+            display_error("Usage: task-cli list <done><todo><in-progress><all>\n");
             return;
         }
-        list_tasks(this->model, argv[2]);
+        if (list_tasks(this->model, argv[2]) != 0) {
+            display_error("Error: Unable to list task\n");
+        }
     } else {
         display_error("Error: Not a valid command\n");
     }

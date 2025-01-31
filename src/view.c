@@ -21,7 +21,7 @@ void display_task(int num_columns, char **column_text, char **column_name) {
                 printf("%s | ", column_name[i]);
             }
         }
-        printf("\n\n");
+        printf("\n");
         column_names_printed = 1;
     }
 
