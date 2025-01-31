@@ -8,7 +8,7 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
     if (argc < 2) {
         display_error("Usage: task-cli <command> [<args>]\n");
         return;
-    } 
+    }
 
     char *command = argv[1];
 
@@ -19,16 +19,17 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
         }
 
         int id = add_task(this->model, argv[2], argv[3]);
-        display_query_message(id, "added"); 
+        display_query_message(id, "added");
 
     } else if (strcmp(command, "update") == 0) {
         if (argc != 4) {
             display_error("Usage: task-cli update <id> \"task\"\n");
             return;
         }
-        int id = atoi(argv[2]);
+        int task_id = atoi(argv[2]);
 
-        display_query_message(id, "updated");
+        update_task(this->model, task_id, argv[3]);
+        display_query_message(task_id, "updated");
 
     } else if (strcmp(command, "delete") == 0) {
         if (argc != 3) {

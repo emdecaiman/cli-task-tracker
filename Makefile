@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -Iinclude -l sqlite3
 
-SRCS = src/main.c src/controller.c src/model.c src/view.c
+SRCS = $(wildcard src/*.c)
 EXEC = task-cli
 
 all: $(EXEC)
