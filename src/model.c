@@ -23,7 +23,7 @@ int execute_sql(struct model *this, const char *sql, int (*callback)(void *, int
 
 int init_model(struct model *this) {
     if (sqlite3_open("tasks.db", &this->db)) {
-        display_error("Error: Unable to open database\n");
+        display_error("Error: Unable to open database");
         return -1;
     }
 
@@ -38,7 +38,7 @@ int init_model(struct model *this) {
         "task_id INTEGER PRIMARY KEY,"
         "group_id INTEGER,"
         "description TEXT NOT NULL,"
-        "status TEXT CHECK(status IN ('todo', 'in_progress', 'done')) NOT NULL DEFAULT 'todo',"
+        "status TEXT CHECK(status IN ('todo', 'in-progress', 'done')) NOT NULL DEFAULT 'todo',"
         "date_created DATE DEFAULT (datetime('now', 'localtime')),"
         "FOREIGN KEY (group_id) REFERENCES groups(group_id)"
         ");";
@@ -78,7 +78,7 @@ int get_group_id(struct model *this, const char *group) {
     // compile sql text into byte-code
     int rc = sqlite3_prepare_v2(this->db, sql, -1, &stmt, NULL);
     if (rc != SQLITE_OK) {
-        display_error("Error: sqlite3_prepare_v2\n");
+        display_error("Error: sqlite3_prepare_v2");
         sqlite3_finalize(stmt);
         return -1;
     }
@@ -130,7 +130,7 @@ int get_task_id(struct model *this, int task_id) {
 
     int rc = sqlite3_prepare_v2(this->db, sql, -1, &stmt, NULL);
     if (rc != SQLITE_OK) {
-        display_error("Error: sqlite3_prepare_v2\n");
+        display_error("Error: sqlite3_prepare_v2");
         sqlite3_finalize(stmt);
         return -1;
     }
@@ -145,27 +145,46 @@ int get_task_id(struct model *this, int task_id) {
 }
 
 int list_tasks(struct model *this, const char *filter) {
-    const char *sql;
-    int isValidFilter = strcmp(filter, "done") == 0 || strcmp(filter, "todo") == 0 || strcmp(filter, "in-progress") == 0;
+    int isValidFilter = strcmp(filter, "done") == 0 
+        || strcmp(filter, "todo") == 0 
+        || strcmp(filter, "in-progress") == 0;
+    char sql[256];
 
     if (strcmp(filter, "all") == 0) {
-        sql =
+        char *sql_all = 
             "SELECT task_id, group_name, description, status, date_created "
             "FROM tasks "
             "INNER JOIN groups ON tasks.group_id = groups.group_id;";
-            
+        strcpy(sql, sql_all);
+
     } else if (isValidFilter) {
-        char sql[256];
         snprintf(sql, sizeof(sql),
-                 "SELECT task_id, group_name, description, status, date_created "
-                 "FROM tasks "
-                 "INNER JOIN groups ON tasks.group_id = groups.group_id "
-                 "WHERE status = '%s';",
-                 filter);
+                "SELECT task_id, group_name, description, status, date_created "
+                "FROM tasks "
+                "INNER JOIN groups ON tasks.group_id = groups.group_id "
+                "WHERE status = '%s';",
+                filter);
     } else {
-        display_error("Usage: task-cli list <done><todo><in-progress><all>\n");
+        display_error("Usage: task-cli list <done><todo><in-progress><all>");
+        return -1;
+    }
+    return execute_sql(this, sql, callback);
+}
+
+int update_task_mark(struct model *this, int task_id, const char *task) {
+    int isValidTask = strcmp(task, "done") == 0
+        || strcmp(task, "todo") == 0
+        || strcmp(task, "in-progress") == 0;
+
+    if (get_task_id(this, task_id) != 0 || !isValidTask) {
         return -1;
     }
 
-    return execute_sql(this, sql, callback);
+    char sql[256];
+    snprintf(sql, sizeof(sql),
+            "UPDATE tasks "
+            "SET status = '%s' "
+            "WHERE task_id = %d;",
+            task, task_id);
+    return execute_sql(this, sql, NULL);
 }

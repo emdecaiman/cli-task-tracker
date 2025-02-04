@@ -19,5 +19,6 @@ int add_group(struct model *this, const char *group);
 int update_task(struct model *this, int task_id, const char *task);
 int get_task_id(struct model *this, int task_id);
 int list_tasks(struct model *this, const char *filter);
+int update_task_mark(struct model *this, int task_id, const char *task);
 
 #endif
