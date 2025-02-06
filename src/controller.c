@@ -88,7 +88,7 @@ void handle_user_input(struct controller *this, int argc, char *argv[]) {
 int user_confirmation_input() {
     char input;
 
-    display_message("Notice: Confirm deletion <y><n>");
+    display_message("Confirm deletion y/n");
     scanf("%c", &input);
 
     if (input == 'y') {
@@ -97,7 +97,7 @@ int user_confirmation_input() {
         return 1;
     }
 
-    display_message("Notice: Confirm deletion <y><n>");
+    display_message("Confirm deletion y/n");
 
     return -1;
 }

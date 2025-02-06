@@ -22,7 +22,9 @@ int execute_sql(struct model *this, const char *sql, int (*callback)(void *, int
 }
 
 int init_model(struct model *this) {
-    if (sqlite3_open("tasks.db", &this->db)) {
+    char db_path[512] = "/Users/emmanuel.decaiman/Documents/projects/cli-task-tracker/tasks.db";
+
+    if (sqlite3_open(db_path, &this->db)) {
         display_error("Error: Unable to open database");
         return -1;
     }

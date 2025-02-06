@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     struct model model;
 
     if (init_model(&model) != 0 ) {
-        display_error("Error: Unable to initialize model\n");
+        display_error("Error: Unable to initialize model");
         return 1;
     }
     init_controller(&controller, &model);
