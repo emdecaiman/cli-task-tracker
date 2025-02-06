@@ -4,7 +4,7 @@ in C and uses SQLite database.
 
 ## Commands
 This application supports the following commands
-```
+```sh
 # Adding a task into a category
 task-cli add "task" "category"
 
