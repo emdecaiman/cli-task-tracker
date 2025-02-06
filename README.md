@@ -21,7 +21,7 @@ task-cli mark <id> <done><todo><in-progress>
 task-cli list <done><todo><in-progress><all>
 ```
 ## Installation
-```
+```sh
 git clone https://github.com/yourusername/cli-task-tracker.git
 cd cli-task-tracker
 make
