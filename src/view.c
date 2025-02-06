@@ -10,6 +10,10 @@ void display_query_message(int id, char *query) {
     printf("Task %s successfully (ID: %d)\n", query, id);
 };
 
+void display_message(char *string) {
+    printf("%s\n", string);
+}
+
 void display_task(int num_columns, char **column_text, char **column_name) {
     static int column_names_printed = 0;
 

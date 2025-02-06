@@ -2,7 +2,7 @@
 
 #include "view.h"
 
-// callback function is caleld on each row in the table
+// callback function is called on each row in the table
 static int callback(void *data, int num_columns, char **column_text, char **column_name) {
     display_task(num_columns, column_text, column_name);
     return 0;
@@ -165,7 +165,6 @@ int list_tasks(struct model *this, const char *filter) {
                 "WHERE status = '%s';",
                 filter);
     } else {
-        display_error("Usage: task-cli list <done><todo><in-progress><all>");
         return -1;
     }
     return execute_sql(this, sql, callback);
@@ -186,5 +185,18 @@ int update_task_mark(struct model *this, int task_id, const char *task) {
             "SET status = '%s' "
             "WHERE task_id = %d;",
             task, task_id);
+    return execute_sql(this, sql, NULL);
+}
+
+int delete_task(struct model *this, int task_id) {
+    if (get_task_id(this, task_id) != 0) {
+        return -1;
+    }
+
+    char sql[256];
+    snprintf(sql, sizeof(sql),
+            "DELETE FROM tasks "
+            "WHERE task_id = %d;",
+            task_id);
     return execute_sql(this, sql, NULL);
 }

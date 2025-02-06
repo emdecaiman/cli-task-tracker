@@ -20,5 +20,6 @@ int update_task(struct model *this, int task_id, const char *task);
 int get_task_id(struct model *this, int task_id);
 int list_tasks(struct model *this, const char *filter);
 int update_task_mark(struct model *this, int task_id, const char *task);
+int delete_task(struct model *this, int task_id);
 
 #endif
