@@ -26,4 +26,4 @@ git clone https://github.com/yourusername/cli-task-tracker.git
 cd cli-task-tracker
 make
 ```
-If using a zsh terminal, you can add an alias for the executable to run the program from any directory. To do so, edit your ~/.zshrc file and add the following `alias task-cli='/absolute/path/to/cli-task-tracker/task-cli`. Then restart terminal to take effect.
+You can add an alias for the executable to run the program from any directory. To do so, first modify line 25 in model.c ```char db_path[512] = "/PATH/tasks.db";``` replacing with your absolute path. Then edit your ~/.zshrc or ~/.bashrc file and add the following `alias task-cli='/PATH/task-cli`. Then restart terminal to take effect.
